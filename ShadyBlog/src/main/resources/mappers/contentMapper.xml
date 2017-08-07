@@ -1,27 +1,107 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.shadyblog.dao.contentMapper" >
-  <resultMap id="BaseResultMap" type="com.shadyblog.pojo.content" >
-    <constructor >
-      <idArg column="content_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="article_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shadyblog.dao.contentMapper">
+  <resultMap id="BaseResultMap" type="com.shadyblog.pojo.content">
+    <constructor>
+      <idArg column="content_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="article_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="text_md" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="text_html" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.shadyblog.pojo.contentWithBLOBs" >
-    <constructor >
-      <idArg column="content_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="article_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="text_md" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
-      <arg column="text_html" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+  <sql id="Base_Column_List">
+    content_id, article_id, text_md, text_html
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from content
+    where content_id = #{contentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from content
+    where content_id = #{contentId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.shadyblog.pojo.content">
+    insert into content (content_id, article_id, text_md, 
+      text_html)
+    values (#{contentId,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER}, #{textMd,jdbcType=VARCHAR}, 
+      #{textHtml,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shadyblog.pojo.content">
+    insert into content
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="contentId != null">
+        content_id,
+      </if>
+      <if test="articleId != null">
+        article_id,
+      </if>
+      <if test="textMd != null">
+        text_md,
+      </if>
+      <if test="textHtml != null">
+        text_html,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="contentId != null">
+        #{contentId,jdbcType=INTEGER},
+      </if>
+      <if test="articleId != null">
+        #{articleId,jdbcType=INTEGER},
+      </if>
+      <if test="textMd != null">
+        #{textMd,jdbcType=VARCHAR},
+      </if>
+      <if test="textHtml != null">
+        #{textHtml,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shadyblog.pojo.content">
+    update content
+    <set>
+      <if test="articleId != null">
+        article_id = #{articleId,jdbcType=INTEGER},
+      </if>
+      <if test="textMd != null">
+        text_md = #{textMd,jdbcType=VARCHAR},
+      </if>
+      <if test="textHtml != null">
+        text_html = #{textHtml,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where content_id = #{contentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shadyblog.pojo.content">
+    update content
+    set article_id = #{articleId,jdbcType=INTEGER},
+      text_md = #{textMd,jdbcType=VARCHAR},
+      text_html = #{textHtml,jdbcType=VARCHAR}
+    where content_id = #{contentId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.shadyblog.pojo.content">
+    <constructor>
+      <idArg column="content_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="article_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
     </constructor>
   </resultMap>
-  <sql id="Base_Column_List" >
+  <resultMap id="ResultMapWithBLOBs" type="com.shadyblog.pojo.contentWithBLOBs">
+    <constructor>
+      <idArg column="content_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="article_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="text_md" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+      <arg column="text_html" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
     content_id, article_id
   </sql>
-  <sql id="Blob_Column_List" >
+  <sql id="Blob_Column_List">
     text_md, text_html
   </sql>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
     ,
@@ -29,70 +109,70 @@
     from content
     where content_id = #{contentId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from content
     where content_id = #{contentId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.shadyblog.pojo.contentWithBLOBs" >
+  <insert id="insert" parameterType="com.shadyblog.pojo.contentWithBLOBs">
     insert into content (content_id, article_id, text_md, 
       text_html)
     values (#{contentId,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER}, #{textMd,jdbcType=LONGVARCHAR}, 
       #{textHtml,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.shadyblog.pojo.contentWithBLOBs" >
+  <insert id="insertSelective" parameterType="com.shadyblog.pojo.contentWithBLOBs">
     insert into content
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="contentId != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="contentId != null">
         content_id,
       </if>
-      <if test="articleId != null" >
+      <if test="articleId != null">
         article_id,
       </if>
-      <if test="textMd != null" >
+      <if test="textMd != null">
         text_md,
       </if>
-      <if test="textHtml != null" >
+      <if test="textHtml != null">
         text_html,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="contentId != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="contentId != null">
         #{contentId,jdbcType=INTEGER},
       </if>
-      <if test="articleId != null" >
+      <if test="articleId != null">
         #{articleId,jdbcType=INTEGER},
       </if>
-      <if test="textMd != null" >
+      <if test="textMd != null">
         #{textMd,jdbcType=LONGVARCHAR},
       </if>
-      <if test="textHtml != null" >
+      <if test="textHtml != null">
         #{textHtml,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.shadyblog.pojo.contentWithBLOBs" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.shadyblog.pojo.contentWithBLOBs">
     update content
-    <set >
-      <if test="articleId != null" >
+    <set>
+      <if test="articleId != null">
         article_id = #{articleId,jdbcType=INTEGER},
       </if>
-      <if test="textMd != null" >
+      <if test="textMd != null">
         text_md = #{textMd,jdbcType=LONGVARCHAR},
       </if>
-      <if test="textHtml != null" >
+      <if test="textHtml != null">
         text_html = #{textHtml,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where content_id = #{contentId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.shadyblog.pojo.contentWithBLOBs" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.shadyblog.pojo.contentWithBLOBs">
     update content
     set article_id = #{articleId,jdbcType=INTEGER},
       text_md = #{textMd,jdbcType=LONGVARCHAR},
       text_html = #{textHtml,jdbcType=LONGVARCHAR}
     where content_id = #{contentId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.shadyblog.pojo.content" >
+  <update id="updateByPrimaryKey" parameterType="com.shadyblog.pojo.content">
     update content
     set article_id = #{articleId,jdbcType=INTEGER}
     where content_id = #{contentId,jdbcType=INTEGER}

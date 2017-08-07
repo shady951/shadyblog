@@ -5,9 +5,15 @@ public class content {
 
     private Integer articleId;
 
-    public content(Integer contentId, Integer articleId) {
+    private String textMd;
+
+    private String textHtml;
+
+    public content(Integer contentId, Integer articleId, String textMd, String textHtml) {
         this.contentId = contentId;
         this.articleId = articleId;
+        this.textMd = textMd;
+        this.textHtml = textHtml;
     }
 
     public content() {
@@ -28,5 +34,21 @@ public class content {
 
     public void setArticleId(Integer articleId) {
         this.articleId = articleId;
+    }
+
+    public String getTextMd() {
+        return textMd;
+    }
+
+    public void setTextMd(String textMd) {
+        this.textMd = textMd == null ? null : textMd.trim();
+    }
+
+    public String getTextHtml() {
+        return textHtml;
+    }
+
+    public void setTextHtml(String textHtml) {
+        this.textHtml = textHtml == null ? null : textHtml.trim();
     }
 }
