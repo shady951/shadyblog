@@ -1,19 +1,24 @@
 package com.shadyblog.pojo;
 
-public class akMapper {
+public class AkMapper {
     private Integer mapperId;
 
     private Integer articleId;
 
     private Integer keywordId;
 
-    public akMapper(Integer mapperId, Integer articleId, Integer keywordId) {
+    public AkMapper(Integer mapperId, Integer articleId, Integer keywordId) {
         this.mapperId = mapperId;
         this.articleId = articleId;
         this.keywordId = keywordId;
     }
 
-    public akMapper() {
+    public AkMapper(Integer articleId, Integer keywordId) {
+        this.articleId = articleId;
+        this.keywordId = keywordId;
+    }
+    
+    public AkMapper() {
         super();
     }
 

@@ -2,7 +2,7 @@ package com.shadyblog.pojo;
 
 import java.util.Date;
 
-public class article {
+public class Article {
     private Integer articleId;
 
     private String title;
@@ -15,7 +15,7 @@ public class article {
 
     private Integer clickNumber;
 
-    public article(Integer articleId, String title, String summary, Date updateTime, Date createTime, Integer clickNumber) {
+    public Article(Integer articleId, String title, String summary, Date updateTime, Date createTime, Integer clickNumber) {
         this.articleId = articleId;
         this.title = title;
         this.summary = summary;
@@ -24,7 +24,12 @@ public class article {
         this.clickNumber = clickNumber;
     }
 
-    public article() {
+    public Article(String title, String summary) {
+        this.title = title;
+        this.summary = summary;
+    }
+    
+    public Article() {
         super();
     }
 
@@ -75,4 +80,12 @@ public class article {
     public void setClickNumber(Integer clickNumber) {
         this.clickNumber = clickNumber;
     }
+
+	@Override
+	public String toString() {
+		return "Article [articleId=" + articleId + ", title=" + title + ", summary=" + summary + ", updateTime=" + updateTime
+				+ ", createTime=" + createTime + ", clickNumber=" + clickNumber + "]";
+	}
+    
+    
 }

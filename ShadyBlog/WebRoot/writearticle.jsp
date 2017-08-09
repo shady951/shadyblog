@@ -44,13 +44,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  	<form action="<%=path%>/manager/addarticle" method="post" id="articleform" enctype="multipart/form-data"
+  	<form action="<%=path%>/manager/uploadarticle" method="post" id="articleform" enctype="multipart/form-data"
   	<span>标题:</span>
-  	<input name="title" value="必填">
+  	<input name="title" value="">
   	<span>摘要:</span>
   	<input name="summary" value="">
-  	<span>关键词(多个以英文逗号“,”分割):</span>
+  	<span>关键词(多个以英文逗号分割):</span>
   	<input name="keywords" value="">
+  	<span>发布时间(格式:6666-06-06,默认当前时间):</span>
+  	<input name="articletime" value="">
   	<input type="submit" value="提交"/>
   	</form>
     <!-- editormd start -->

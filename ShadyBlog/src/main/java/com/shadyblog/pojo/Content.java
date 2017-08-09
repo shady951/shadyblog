@@ -1,6 +1,6 @@
 package com.shadyblog.pojo;
 
-public class content {
+public class Content {
     private Integer contentId;
 
     private Integer articleId;
@@ -9,14 +9,19 @@ public class content {
 
     private String textHtml;
 
-    public content(Integer contentId, Integer articleId, String textMd, String textHtml) {
+    public Content(Integer contentId, Integer articleId, String textMd, String textHtml) {
         this.contentId = contentId;
         this.articleId = articleId;
         this.textMd = textMd;
         this.textHtml = textHtml;
     }
 
-    public content() {
+    public Content(String textMd, String textHtml) {
+        this.textMd = textMd;
+        this.textHtml = textHtml;
+    }
+    
+    public Content() {
         super();
     }
 

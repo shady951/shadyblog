@@ -2,7 +2,7 @@ package com.shadyblog.pojo;
 
 import java.util.Date;
 
-public class keyword {
+public class Keyword {
     private Integer keywordId;
 
     private String name;
@@ -11,14 +11,20 @@ public class keyword {
 
     private Date createTime;
 
-    public keyword(Integer keywordId, String name, Integer amount, Date createTime) {
+    public Keyword(Integer keywordId, String name, Integer amount, Date createTime) {
         this.keywordId = keywordId;
         this.name = name;
         this.amount = amount;
         this.createTime = createTime;
     }
 
-    public keyword() {
+    public Keyword(String name, Integer amount, Date createTime) {
+        this.name = name;
+        this.amount = amount;
+        this.createTime = createTime;
+    }
+    
+    public Keyword() {
         super();
     }
 
