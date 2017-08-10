@@ -21,17 +21,17 @@ public class NormalService {
 	 */
 	public  List<Article> selectAllArticleInOnePage(Integer pageNum) {
 		SqlSession sqlSession = null;
+		List<Article> articleList = null;
 		try {
 			sqlSession = DBAccessUtil.getSqlSession();
 			ArticleMapper articleMapper = sqlSession.getMapper(ArticleMapper.class);
-			List<Article> articleList = articleMapper.selectAllArticleInOnePage(PageUtil.offSet(pageNum), PageUtil.LIMITNUMBER);
-			return articleList;
+			articleList = articleMapper.selectAllArticleInOnePage(PageUtil.offSet(pageNum), PageUtil.LIMITNUMBER);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
 			DBAccessUtil.closeSqlSession(sqlSession);
 		}
-		return null;
+		return articleList;
 	}
 	
 	/**
@@ -39,17 +39,17 @@ public class NormalService {
 	 */
 	public Article selectArticleByArticleId(Integer articleId) {
 		SqlSession sqlSession = null;
+		Article article = null;
 		try {
 			sqlSession = DBAccessUtil.getSqlSession();
 			ArticleMapper articleMapper = sqlSession.getMapper(ArticleMapper.class);
-			Article article= articleMapper.selectByPrimaryKey(articleId);
-			return article;
+			article= articleMapper.selectByPrimaryKey(articleId);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
 			DBAccessUtil.closeSqlSession(sqlSession);
 		}
-		return null;
+		return article;
 	}
 	
 	/**
@@ -57,25 +57,22 @@ public class NormalService {
 	 */
 	public Content selectContentByArticleId(Integer articleId) {
 		SqlSession sqlSession = null;
+		Content content = null;
 		try {
 			sqlSession = DBAccessUtil.getSqlSession();
 			ContentMapper contentMapper = sqlSession.getMapper(ContentMapper.class);
-			Content content= contentMapper.selectByPrimaryKey(articleId);
-			return content;
+			content = contentMapper.selectContentByArticleId(articleId);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
 			DBAccessUtil.closeSqlSession(sqlSession);
 		}
-		return null;
+		return content;
 	}
 	
 //	public static void main(String[] args) {
-//		List<Article> la = new NormalService().selectAllArticleInOnePage(1);
-//		System.out.println(la.size());
-//		System.out.println(la.get(0));
-//		System.out.println(la.get(1));
-//		System.out.println(la.get(2));
+//		Content content = new NormalService().selectContentByArticleId(8);
+//		System.out.println(content);
 //	}
 	
 }

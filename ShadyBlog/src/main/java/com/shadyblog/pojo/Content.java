@@ -56,4 +56,10 @@ public class Content {
     public void setTextHtml(String textHtml) {
         this.textHtml = textHtml == null ? null : textHtml.trim();
     }
+
+	@Override
+	public String toString() {
+		return "Content [contentId=" + contentId + ", articleId=" + articleId + ", textMd=" + textMd + ", textHtml=" + textHtml + "]";
+	}
+    
 }

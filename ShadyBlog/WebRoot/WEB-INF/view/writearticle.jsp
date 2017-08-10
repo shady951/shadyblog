@@ -46,7 +46,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
   	<form action="<%=path%>/manager/addarticle" method="post" id="articleform" enctype="multipart/form-data"
   	<span>标题:</span>
-  	<input name="title" value="必填">
+  	<input name="title" value="">
   	<span>摘要:</span>
   	<input name="summary" value="">
   	<span>关键词(多个以英文逗号“,”分割):</span>

@@ -13,13 +13,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
 
   <body>
-  	<h1>this is test jsp!</h1>
     <div class="markdown-body editormd-html-preview" id="content">
-	 <c:forEach var="al" items="${articleList}">
 	 	<div>
-	 		${al.title}
+	 		${content.textHtml}
 	 	</div>
-	 </c:forEach>
+	 	<div>
+	 		${content.textMd}
+	 	</div>
     </div>
   </body>
 	<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>

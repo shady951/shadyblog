@@ -18,8 +18,8 @@
 		SELECT 
 		<include refid="Base_Column_List" />
 		FROM article
-		ORDER BY create_time 
-		DESC limit #{offset},#{limit};
+		ORDER BY create_time DESC
+		LIMIT #{offset},#{limit};
 	<!-- DESC：从倒序开始查,即离现在最近的时间在前 -->
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

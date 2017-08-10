@@ -14,4 +14,6 @@ public interface ContentMapper {
     int updateByPrimaryKeySelective(Content record);
 
     int updateByPrimaryKey(Content record);
+
+	Content selectContentByArticleId(Integer articleId);
 }

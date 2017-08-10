@@ -29,9 +29,7 @@ public class ManagerService {
 	@SuppressWarnings("resource")
 	public  boolean addArticle(Article article, Content content, String keywords) { 
 		//文章标题必填
-		if(article.getTitle() == null) return false;
-		//由于数据库设置该字段为not null，所以手动填充空字符串
-		if(article.getSummary() == null) article.setSummary("");
+		if(article.getTitle().equals("")) return false;
 		//新文章设置默认点击量为0
 		if(article.getClickNumber() == null) article.setClickNumber(0);
 		Date date = new Date();
@@ -56,9 +54,9 @@ public class ManagerService {
 			}
 			KeywordMapper keywordMapper = sqlSession.getMapper(KeywordMapper.class);
 			AkMapperMapper akMapperMapper = sqlSession.getMapper(AkMapperMapper.class);
-			String[] keywordArr = keywords.split(",");
 			//若未设置关键字，则放入其它分类中
-			if(keywordArr.length == 0) keywordArr = new String[]{"其它"};
+			if(keywords.equals("")) keywords = "其它";
+			String[] keywordArr = keywords.split(",");
 			for(String keywordName : keywordArr) {
 				Integer keywordId = keywordMapper.selectIdByName(keywordName);
 				LOGGER.info("keywordId1:"+keywordId);
@@ -81,7 +79,6 @@ public class ManagerService {
 			}
 			//事务提交
 			sqlSession.commit();
-			return true;
 		} catch (IOException e) {
 			//异常回滚
 			sqlSession.rollback();
@@ -89,7 +86,7 @@ public class ManagerService {
 		} finally {
 			DBAccessUtil.closeSqlSession(sqlSession);
 		}
-		return false;
+		return true;
 	}
 	
 //	public static void main(String[] args) {

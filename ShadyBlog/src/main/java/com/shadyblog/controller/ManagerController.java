@@ -9,31 +9,35 @@ import org.shady4j.framework.bean.Param;
 import org.shady4j.framework.bean.View;
 import org.shady4j.framework.helper.ServletHelper;
 import org.shady4j.framework.helper.UploadHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.shadyblog.dto.EditormdImage;
+import com.shadyblog.pojo.Article;
+import com.shadyblog.pojo.Content;
 import com.shadyblog.service.ManagerService;
 import com.shadyblog.util.FileRenameUtil;
 
 @Controller
 public class ManagerController {
-	
-	private static final Logger LOGGER = LoggerFactory.getLogger(ManagerController.class);
+
+//	private static final Logger LOGGER = LoggerFactory.getLogger(ManagerController.class);
 	
 	@Inject
 	ManagerService managerService;
 	
+	/**
+	 * 写文章 
+	 */
 	@Behavior(method="get", path="/manager/writearticle")
 	public View writearticle(Param param) { 
-		LOGGER.info("method in writearticle(1)");
-		return new View("/blog");
+		return new View("writearticle.jsp");
 	}
-
-	@Behavior(method="get", path="/blog")
-	public View witearticl(Param param) { 
-		LOGGER.info("method in writearticle(3)");
-		return new View("blog.jsp");
+	
+	/**
+	 * 更新文章 
+	 */
+	@Behavior(method="post", path="/manager/writearticle")
+	public View updatearticle(Param param) {
+		return new View("writearticle.jsp"); //TODO
 	}
 	
 	/**
@@ -61,14 +65,13 @@ public class ManagerController {
 	 */
 	@Behavior(method="post", path="/manager/addarticle")
 	public Data uploadarticle(Param param) {
-//		Article article = new Article(param.getString("title"), param.getString("summary")); 
-//		Content content = new Content(param.getString("editormd"), param.getString("editorhtml"));
-//		if(managerService.addArticle(article, content, param.getString("keywords")))	 {
-//			return new Data(new Success() {
-//				boolean success = true;
-//			});
-//		}
-		
+		Article article = new Article(param.getString("title"), param.getString("summary")); 
+		Content content = new Content(param.getString("editormd"), param.getString("editorhtml"));
+		if(managerService.addArticle(article, content, param.getString("keywords")))	 {
+			return new Data("success");
+		} else {
+			return new Data("failure"); //TODO
+		}
 //		Map<String, Object> map = param.getFieldMap();
 //		for(Map.Entry<String, Object> me : map.entrySet()) {
 //			System.out.println("key:"+me.getKey());
@@ -81,6 +84,7 @@ public class ManagerController {
 //			return new View("test.jsp").addModel("editormd", String.valueOf(map.get("editorhtml")));
 //		}
 //		System.out.println("map is empty!");
-		return null;
 	}
+	
+	
 }
