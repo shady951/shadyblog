@@ -15,9 +15,13 @@ public interface ArticleMapper {
 
     Article selectByPrimaryKey(Integer articleId);
 
-    int updateByPrimaryKeySelective(Article record);
-
     int updateByPrimaryKey(Article record);
+    //--------------
+    int updateByPrimaryKeySelective(Article record);
     
     List<Article> selectAllArticleInOnePage(@Param("offset")int offset, @Param("limit")int limit);
+
+	List<Article> selectSpecialArticleInOnePage(@Param("offset")int offSet, @Param("limit")int limit, @Param("list")List<Integer> articleIdList);
+
+	List<Integer> selectAllArticleId();
 }

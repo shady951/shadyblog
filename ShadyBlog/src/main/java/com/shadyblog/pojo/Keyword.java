@@ -59,4 +59,11 @@ public class Keyword {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
+
+	@Override
+	public String toString() {
+		return "Keyword [keywordId=" + keywordId + ", name=" + name + ", amount=" + amount + ", createTime=" + createTime + "]";
+	}
+    
+    
 }

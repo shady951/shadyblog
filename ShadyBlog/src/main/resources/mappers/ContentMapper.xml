@@ -87,4 +87,10 @@
       text_html = #{textHtml,jdbcType=VARCHAR}
     where content_id = #{contentId,jdbcType=INTEGER}
   </update>
+  <update id="updateByArticleId" parameterType="com.shadyblog.pojo.Content" >
+    update content
+    set text_md = #{textMd,jdbcType=VARCHAR},
+      text_html = #{textHtml,jdbcType=VARCHAR}
+    where article_id = #{articleId,jdbcType=INTEGER}
+  </update>
 </mapper>

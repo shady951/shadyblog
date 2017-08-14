@@ -20,13 +20,29 @@
 		FROM article
 		ORDER BY create_time DESC
 		LIMIT #{offset},#{limit};
-	<!-- DESC：从倒序开始查,即离现在最近的时间在前 -->
+	<!-- DESC：从倒序开始查,即离现在最近的日期排在前 -->
+  </select>
+   <select id="selectSpecialArticleInOnePage" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from article
+    where article_id in 
+    <foreach collection="list" open="(" close=")" separator="," item="id">
+    	#{id,jdbcType=INTEGER}
+    </foreach>
+    ORDER BY create_time DESC
+	LIMIT #{offset},#{limit};
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from article
     where article_id = #{articleId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAllArticleId" resultType="java.lang.Integer" >
+    select 
+    article_id
+    from article
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from article

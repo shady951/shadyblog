@@ -16,6 +16,12 @@ public class Content {
         this.textHtml = textHtml;
     }
 
+    public Content(Integer articleId, String textMd, String textHtml) {
+    	 this.articleId = articleId;
+        this.textMd = textMd;
+        this.textHtml = textHtml;
+    }
+    
     public Content(String textMd, String textHtml) {
         this.textMd = textMd;
         this.textHtml = textHtml;

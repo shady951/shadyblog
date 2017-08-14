@@ -12,15 +12,41 @@
   <sql id="Base_Column_List" >
     keyword_id, name, amount, create_time
   </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" >
+    select 
+  	<include refid="Base_Column_List" />
+    from keyword
+     where keyword_id = #{keywordId,jdbcType=INTEGER}
+  </select>
   <select id="selectIdByName" resultType="java.lang.Integer" parameterType="java.lang.String" >
     select 
-  	keyword_id
-    from keyword
+  	keyword_id 
+    from keyword 
     where name = #{name ,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select 
+  	<include refid="Base_Column_List" />
+    from keyword
+    ORDER BY amount DESC
+  </select>
+  <select id="selectKeywordByKeywordIdList" resultMap="BaseResultMap" >
+    select 
+  	<include refid="Base_Column_List" />
+    from keyword 
+    where keyword_id in
+    <foreach collection="list" open="(" close=")" separator="," item="keywordId">
+    	#{keywordId,jdbcType=INTEGER}
+    </foreach>
+    ORDER BY amount DESC
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from keyword
     where keyword_id = #{keywordId,jdbcType=INTEGER}
+  </delete>
+   <delete id="deleteSpareKeywords" >
+    delete from keyword
+    where amount = 0
   </delete>
   <insert id="insert" parameterType="com.shadyblog.pojo.Keyword" useGeneratedKeys="true" keyProperty="keywordId">
     insert into keyword (name, amount, 
@@ -76,7 +102,7 @@
   </update>
   <update id="updateAmountByKeywordId" parameterType="java.lang.Integer" >
     update keyword
-    set amount = amount + 1,
+    set amount = amount + 1 
     where keyword_id = #{keywordId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.shadyblog.pojo.Keyword" >
@@ -85,5 +111,13 @@
       amount = #{amount,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where keyword_id = #{keywordId,jdbcType=INTEGER}
+  </update>
+   <update id="updateReduceAmountByKeywordId">
+    update keyword
+    set amount = amount - 1 
+    where keyword_id in
+    <foreach collection="list" open="(" close=")" separator="," item="keywordId">
+    	#{keywordId,jdbcType=INTEGER}
+    </foreach>
   </update>
 </mapper>

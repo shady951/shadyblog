@@ -1,5 +1,7 @@
 package com.shadyblog.controller;
 
+import java.util.Map;
+
 import org.shady4j.framework.annotation.Behavior;
 import org.shady4j.framework.annotation.Controller;
 import org.shady4j.framework.annotation.Inject;
@@ -9,42 +11,59 @@ import org.shady4j.framework.bean.Param;
 import org.shady4j.framework.bean.View;
 import org.shady4j.framework.helper.ServletHelper;
 import org.shady4j.framework.helper.UploadHelper;
+import org.shady4j.framework.util.CollectionUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import com.shadyblog.dto.ArticleInfo;
 import com.shadyblog.dto.EditormdImage;
 import com.shadyblog.pojo.Article;
 import com.shadyblog.pojo.Content;
 import com.shadyblog.service.ManagerService;
+import com.shadyblog.service.NormalService;
 import com.shadyblog.util.FileRenameUtil;
+import com.shadyblog.util.KeywordUtil;
 
 @Controller
 public class ManagerController {
 
-//	private static final Logger LOGGER = LoggerFactory.getLogger(ManagerController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ManagerController.class);
+	
+	private static final boolean newArticle = true;
+	private static final boolean oldArticle = false;
 	
 	@Inject
 	ManagerService managerService;
+	
+	@Inject
+	NormalService normalService;
 	
 	/**
 	 * 写文章 
 	 */
 	@Behavior(method="get", path="/manager/writearticle")
-	public View writearticle(Param param) { 
-		return new View("writearticle.jsp");
+	public View writeArticle(Param param) { 
+		return new View("editarticle.jsp").addModel("isNewArticle", newArticle);
 	}
 	
 	/**
-	 * 更新文章 
+	 * 修改文章 
 	 */
-	@Behavior(method="post", path="/manager/writearticle")
-	public View updatearticle(Param param) {
-		return new View("writearticle.jsp"); //TODO
+	@Behavior(method="get", path="/manager/alterarticle")
+	public View alterArticle(Param param) { 
+		int articleId = param.getInt("articleId");
+		ArticleInfo articleInfo = normalService.getArticleInfo(articleId);
+		Content content= normalService.selectContentByArticleId(articleId);
+		String keywords = KeywordUtil.keywordListTokeywords(articleInfo.getKeywordList());
+		return new View("editarticle.jsp").addModel("isNewArticle", oldArticle).addModel("articleInfo", articleInfo)
+				.addModel("content", content).addModel("keywords", keywords);
 	}
 	
 	/**
 	 * 图片上传 
 	 */
 	@Behavior(method="post", path="/manager/uploadimg")
-	public Data uploadimg(Param param) {
+	public Data uploadImg(Param param) {
 		//editormd图片上传默认字段名editormd-image-file
 		FileParam fileParam= param.getFile("editormd-image-file");
 		if(fileParam != null) {
@@ -64,7 +83,7 @@ public class ManagerController {
 	 * 添加新文章 
 	 */
 	@Behavior(method="post", path="/manager/addarticle")
-	public Data uploadarticle(Param param) {
+	public Data addArticle(Param param) {
 		Article article = new Article(param.getString("title"), param.getString("summary")); 
 		Content content = new Content(param.getString("editormd"), param.getString("editorhtml"));
 		if(managerService.addArticle(article, content, param.getString("keywords")))	 {
@@ -72,19 +91,38 @@ public class ManagerController {
 		} else {
 			return new Data("failure"); //TODO
 		}
-//		Map<String, Object> map = param.getFieldMap();
-//		for(Map.Entry<String, Object> me : map.entrySet()) {
-//			System.out.println("key:"+me.getKey());
-//			System.out.println("value:"+me.getValue());
-//			if(me.getValue() instanceof String) {
-//				System.out.println("this is string!!!!!!");
-//			}
-//		}
-//		if(CollectionUtil.isNotEmpty(map)) {
-//			return new View("test.jsp").addModel("editormd", String.valueOf(map.get("editorhtml")));
-//		}
-//		System.out.println("map is empty!");
 	}
 	
+	/**
+	 * 更新文章 
+	 */
+	@Behavior(method="post", path="/manager/updatearticle")
+	public Data updateArticle(Param param) {
+		LOGGER.info("post:/manager/updatearticle");
+		Article article = new Article(param.getInt("articleId"), param.getString("title"), param.getString("summary")); 
+		Content content = new Content(param.getInt("articleId"),param.getString("editormd"), param.getString("editorhtml"));
+		if(managerService.updateArticle(article, content, param.getString("keywords")))	 {
+			return new Data("success");
+		} else {
+			return new Data("failure"); //TODO
+		}
+	}
+	
+	@Behavior(method="post", path="/manager/test")
+	public Data test(Param param) {
+		Map<String, Object> map = param.getFieldMap();
+		if(CollectionUtil.isEmpty(map)) {
+			System.out.println("map is empty!");
+		} else {
+			for(Map.Entry<String, Object> me : map.entrySet()) {
+				System.out.println("key:"+me.getKey());
+				System.out.println("value:"+me.getValue());
+				if(me.getValue() instanceof String) {
+					System.out.println("this is string!!!!!!");
+				}
+			}
+		}
+		return null;
+	}
 	
 }

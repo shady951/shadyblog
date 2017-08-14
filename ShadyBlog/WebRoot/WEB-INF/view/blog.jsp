@@ -3,6 +3,7 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+<%@include file="common/tag.jsp" %>
 
 <!DOCTYPE html>
 <html>
@@ -15,12 +16,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <meta name="format-detection" content="telephone=no">
   <meta name="renderer" content="webkit">
   <meta http-equiv="Cache-Control" content="no-siteapp"/>
-  <link rel="alternate icon" type="image/png" href="assets/i/favicon.png">
-  <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
+  <link rel="alternate icon" type="image/png" href="<%=path%>/staticresources/assets/i/favicon.png">
+  <link rel="stylesheet" href="<%=path%>/staticresources/assets/css/amazeui.min.css"/>
   <style>
-    @media only screen and (min-width: 1200px) {
+    @media only screen and (min-width: 800px) {
       .blog-g-fixed {
-        max-width: 1200px;
+        max-width: 800px;
       }
     }
 
@@ -70,175 +71,92 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       padding: 10px 0;
       text-align: center;
     }
+    .my-sidebar-left {
+      border-left: 2px solid #eeeeee;
+    }
+    .my-sidebar-right {
+      border-right: 2px solid #eeeeee;
+    }
   </style>
 </head>
-<body>
-<header class="am-topbar">
-  <h1 class="am-topbar-brand">
-    <a href="#">blog</a>
+<body class="container" >
+<header class="am-topbar" style="border-style:none;">
+  <div class="am-collapse am-topbar-collapse" style="margin-left:30px;margin-right:30px;">
+  <h1 class="am-topbar-brand" >
+    <a href="<%=path %>/index">Daily Record</a>
   </h1>
-
-  <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
-          data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
-      class="am-icon-bars"></span></button>
-
-  <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
-    <ul class="am-nav am-nav-pills am-topbar-nav">
-      <li class="am-active"><a href="#">首页</a></li>
-      <li><a href="#">项目</a></li>
-      <li class="am-dropdown" data-am-dropdown>
-        <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
-          菜单 <span class="am-icon-caret-down"></span>
-        </a>
-        <ul class="am-dropdown-content">
-          <li class="am-dropdown-header">标题</li>
-          <li><a href="#">关于我们</a></li>
-          <li><a href="#">关于字体</a></li>
-          <li><a href="#">TIPS</a></li>
-        </ul>
-      </li>
+    <ul class="am-nav am-nav-pills am-topbar-nav " style="margin:0px">
+      <li ><a href="<%=path %>/index">首页</a></li>
+      <li ><a href="<%=path %>/index">分类</a></li>
+      <li><a href="">关于</a></li>
     </ul>
-
-    <form class="am-topbar-form am-topbar-left am-form-inline am-topbar-right" role="search">
-      <div class="am-form-group">
-        <input type="text" class="am-form-field am-input-sm" placeholder="搜索文章">
-      </div>
-      <button type="submit" class="am-btn am-btn-default am-btn-sm">搜索</button>
-    </form>
-
+ 	<ul class="am-nav am-nav-pills am-topbar-nav" style="float:right;margin-top:0px;">
+      <li ><a href="">管理</a></li>
+    </ul>
   </div>
 </header>
 
 <div class="am-g am-g-fixed blog-g-fixed">
-  <div class="am-u-md-8">
+  <div class="am-u-md-12">
+  <c:forEach var="articleInfo" items="${articleInfoList }">
     <article class="blog-main">
       <h3 class="am-article-title blog-title">
-        <a href="#">Google fonts 的字體（display 篇）</a>
+        <a href="<%=path %>/content?articleId=${articleInfo.article.articleId}">${articleInfo.article.title}</a>
       </h3>
-      <h4 class="am-article-meta blog-meta">by <a href="">open</a> posted on 2014/06/17 under <a href="#">字体</a></h4>
-
-      <div class="am-g blog-content">
-        <div class="am-u-lg-7">
-          <p><!-- 本demo来自 http://blog.justfont.com/ -->你自信滿滿的跟客戶進行第一次 demo。秀出你精心設計的內容時，你原本期許客戶冷不防地掉下感動的眼淚。</p>
-
-          <p>因為那實在是太高級了。</p>
-
-          <p>除了各項基本架構幾乎完美無缺之外，內文是高貴的，有著一些距離感的，典雅的襯線字體。不是 Times New
-            Roman，而是很少有人見過的，你精心挑選過的字體，凸顯你品味的高超。而且它並沒有花上你與業主一毛錢，或許這也非常重要。</p>
-        </div>
-        <div class="am-u-lg-5">
-          <p><img src="http://f.cl.ly/items/451O3X0g47320D203D1B/不夠活潑.jpg"></p>
-        </div>
-      </div>
-      <div class="am-g">
-        <div class="am-u-sm-12">
-          <p>看著自己的作品，你的喜悅之情溢於言表，差點就要說出我要感謝我的父母之類的得獎感言。但在你對面的客戶先是一點表情也沒有，又瞬間轉為陰沉，抿了抿嘴角冷冷的說……</p>
-
-          <p>「我要一種比較跳的感覺懂嗎？」</p>
-        </div>
-      </div>
-    </article>
-
-    <hr class="am-article-divider blog-hr">
-
-    <article class="blog-main">
-      <h3 class="am-article-title">
-        <a href="#">身邊的字體: Arial (上)</a>
-      </h3>
-      <h4 class="am-article-meta blog-meta">by <a href="">ben</a> posted on 2014/06/17 under <a href="#">javascript</a>
+	  <div class="am-article-meta">
+      <h4 class="blog-meta">
+	      <span>
+	  	   于 ${articleInfo.dateString}
+	      </span>
+	      <span style="color:#666;">&nbsp;|&nbsp;</span>
+	      <span >标签:</span>
+	      <c:forEach var="keyword" items="${articleInfo.keywordList }">
+		      <a href="<%=path %>/index?keywordId=${keyword.keywordId}" style="color:#666;">${keyword.name}</a>
+		      <span>&nbsp;</span>
+	      </c:forEach>
       </h4>
-
-      <div class="am-g blog-content">
-        <div class="am-u-lg-7">
-          <p><!--本demo文字来自 http://blog.justfont.com/--> 这次要介绍的是大家似乎都狠熟悉却又狠陌生的字体：Arial。不只是对 Typography
-            特别有兴趣的人、碰过排版的人，就算毫无接触，只要打开过电脑的字型选单，应该都有看过这个字型吧。尤其它还是以 A 开头，总是会出现在选单最前面。</p>
-
-          <p>Arial 常常跟 Helvetica 搞混，也常被当作是没有 Helvetica 时的替代字体使用。事实上 Arial 确实就是故意做得跟 Helvetica 狠相似，连每个字母的宽度都刻意做得一模一样。</p>
-        </div>
-        <div class="am-u-lg-5">
-          <p><img src="https://farm3.staticflickr.com/2917/14186214720_5d0b8ca2e3_b.jpg"></p>
-        </div>
       </div>
-      <div class="am-g">
-        <div class="am-u-sm-12">
-          <p>在欧美的排版业界中，使用 Arial 的作品意即是「不使用 Helvetica 的作品」，会被认為是设计师对字体的使用没有概念或是太容易妥协，基本上我大致也是同意。</p>
+      <div class="am-g blog-content am-u-lg-12">${articleInfo.article.summary}</div>
+     </article>
+     <hr class="am-article-divider blog-hr">
+  </c:forEach>
 
-          <p>因為 Helvetica 只有 Mac 上才有內建，Windows 用戶除非花錢買，不然是沒有 Helvetica 能用，所以使用 Arial 的設計師往往被看成是不願意對 Typography
-            花錢，專業素養不到家的人。除了在確保網頁相容性等絕對必需的情況外，幾乎可以說是不應該使用的字體。</p>
-
-          <p>但是，在此之前，我們對 Arial 又有多少認識呢？</p>
-        </div>
-      </div>
-    </article>
-
-    <hr class="am-article-divider blog-hr">
     <ul class="am-pagination blog-pagination">
-      <li class="am-pagination-prev"><a href="">&laquo; 上一页</a></li>
-      <li class="am-pagination-next"><a href="">下一页 &raquo;</a></li>
+      	<li class="am-pagination-prev" id="pagebeginl"><a href="<%=path%>/index?pageNum=1&keyworId=${pageNumInfo.keywordId}">&laquo; 首页</a></li>
+		<li class="am-pagination-prev" id="pagebeginm"><a href="<%=path%>/index?pageNum=${pageNumInfo.pageNum - 2}&keyworId=${pageNumInfo.keywordId}">${pageNumInfo.pageNum - 2}</a></li>
+		<li class="am-pagination-prev" id="pagebeginr"><a href="<%=path%>/index?pageNum=${pageNumInfo.pageNum - 1}&keyworId=${pageNumInfo.keywordId}">${pageNumInfo.pageNum - 1}</a></li>
+      	<li class="am-pagination-next" id="pageendr"><a href="<%=path%>/index?pageNum=${pageNumInfo.pageAmount}&keyworId=${pageNumInfo.keywordId}">尾页&raquo;</a></li>
+		<li class="am-pagination-next" id="pageendm"><a href="<%=path%>/index?pageNum=${pageNumInfo.pageNum + 2}&keyworId=${pageNumInfo.keywordId}">${pageNumInfo.pageNum + 2}</a></li>
+		<li class="am-pagination-next" id="pageendl"><a href="<%=path%>/index?pageNum=${pageNumInfo.pageNum + 1}&keyworId=${pageNumInfo.keywordId}">${pageNumInfo.pageNum + 1}</a></li>
     </ul>
   </div>
 
+  <!-- 
   <div class="am-u-md-4 blog-sidebar">
     <div class="am-panel-group">
       <section class="am-panel am-panel-default">
         <div class="am-panel-hd">关于我</div>
         <div class="am-panel-bd">
-          <p>前所未有的中文云端字型服务，让您在 web 平台上自由使用高品质中文字体，跨平台、可搜寻，而且超美。云端字型是我们的事业，推广字型学知识是我们的志业。从字体出发，关心设计与我们的生活，justfont blog
-            正是為此而生。</p>
+          <p>this is taochuang's blog</p>
           <a class="am-btn am-btn-success am-btn-sm" href="#">查看更多 →</a>
         </div>
       </section>
       <section class="am-panel am-panel-default">
-        <div class="am-panel-hd">文章目录</div>
+        <div class="am-panel-hd">标签</div>
         <ul class="am-list blog-list">
-          <li><a href="#">Google fonts 的字體（sans-serif 篇）</a></li>
-          <li><a href="#">[but]服貿最前線？－再訪桃園機場</a></li>
-          <li><a href="#">到日星鑄字行學字型</a></li>
-          <li><a href="#">glyph font vs. 漢字（上）</a></li>
-          <li><a href="#">浙江民間書刻體上線</a></li>
-          <li><a href="#">[極短篇] Android v.s iOS，誰的字體好讀？</a></li>
+        	<c:forEach var="keyword" items="${keywordList }">
+        		<li><a href="<%=path %>/index?keywordId=${keyword.keywordId}">${keyword.keywordId }</a>(${keyword.amount })</li>
+        	</c:forEach>
         </ul>
-      </section>
-
-      <section class="am-panel am-panel-default">
-        <div class="am-panel-hd">团队成员</div>
-        <div class="am-panel-bd">
-          <ul class="am-avg-sm-4 blog-team">
-            <li><img class="am-thumbnail"
-                     src="http://img4.duitang.com/uploads/blog/201406/15/20140615230220_F5LiM.thumb.224_0.jpeg" alt=""/>
-            </li>
-            <li><img class="am-thumbnail"
-                     src="http://img4.duitang.com/uploads/blog/201406/15/20140615230220_F5LiM.thumb.224_0.jpeg" alt=""/>
-            </li>
-            <li><img class="am-thumbnail"
-                     src="http://img4.duitang.com/uploads/blog/201406/15/20140615230220_F5LiM.thumb.224_0.jpeg" alt=""/>
-            </li>
-            <li><img class="am-thumbnail"
-                     src="http://img4.duitang.com/uploads/blog/201406/15/20140615230220_F5LiM.thumb.224_0.jpeg" alt=""/>
-            </li>
-            <li><img class="am-thumbnail"
-                     src="http://img4.duitang.com/uploads/blog/201406/15/20140615230159_kjTmC.thumb.224_0.jpeg" alt=""/>
-            </li>
-            <li><img class="am-thumbnail"
-                     src="http://img4.duitang.com/uploads/blog/201406/15/20140615230220_F5LiM.thumb.224_0.jpeg" alt=""/>
-            </li>
-            <li><img class="am-thumbnail"
-                     src="http://img4.duitang.com/uploads/blog/201406/15/20140615230220_F5LiM.thumb.224_0.jpeg" alt=""/>
-            </li>
-            <li><img class="am-thumbnail"
-                     src="http://img4.duitang.com/uploads/blog/201406/15/20140615230159_kjTmC.thumb.224_0.jpeg" alt=""/>
-            </li>
-          </ul>
-        </div>
       </section>
     </div>
   </div>
-
+   -->
 </div>
 
 <footer class="blog-footer">
-  <p><br/>
-    <small>© 2017 by TaoChuang. All rights reserved.</small>
+  <p>
+    <small>© 2017 by taochuang. All rights reserved</small>
   </p>
 </footer>
 
@@ -251,7 +169,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--[if (gte IE 9)|!(IE)]><!-->
 <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <!--<![endif]-->
-<script src="assets/js/amazeui.min.js"></script>
-
+<script src="<%=path%>/staticresources/assets/js/amazeui.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	var pageNum = ${pageNumInfo.pageNum};
+	var pageAmount = ${pageNumInfo.pageAmount};
+	if(pageNum == 1) {
+		$('#pagebeginl').hide();
+		$('#pagebeginm').hide();
+		$('#pagebeginr').hide();
+	}; 	  	
+	if(pageNum == 2) {
+		$('#pagebeginl').hide();
+		$('#pagebeginm').hide();
+	};
+	if(pageNum == 3) {
+		$('#pagebeginl').hide();
+	};
+	if(pageNum == pageAmount - 2) {
+		$('#pageendr').hide();
+	};
+	if(pageNum == pageAmount - 1) {
+		$('#pageendr').hide();
+		$('#pageendm').hide();
+	};
+	if(pageNum == pageAmount) {
+		$('#pageendr').hide();
+		$('#pageendm').hide();
+		$('#pageendl').hide();
+	};
+	  });
+</script>
 </body>
 </html>

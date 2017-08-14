@@ -2,10 +2,20 @@ package com.shadyblog.util;
 
 public final class PageUtil {
 
-	public static final int LIMITNUMBER = 5;
+	//每页显示数量
+	public static final int LIMIT = 5;
 	
 	public static int offSet(int pageNum) {
-		if(pageNum < 1) pageNum = 1;
-		return (pageNum - 1) * LIMITNUMBER;
+		pageNum = getCorrectPageNum(pageNum);
+		return (pageNum - 1) * LIMIT;
 	}
+
+	public static int getPageAmount(int size) {
+		return (int)Math.ceil((double)size / LIMIT);
+	}
+
+	public static int getCorrectPageNum(int pageNum) {
+		return pageNum < 1 ? 1 : pageNum;
+	}
+	
 }

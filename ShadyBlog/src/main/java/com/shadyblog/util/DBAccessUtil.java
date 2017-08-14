@@ -28,10 +28,7 @@ public final class DBAccessUtil {
 		//通过配置信息构建SqlSessionFactory
 		//SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
 		//通过sqlSessionFactory打开数据库会话
-		SqlSession ss = new SqlSessionFactoryBuilder().build(reader).openSession();
-		reader.close();
-// 		return new SqlSessionFactoryBuilder().build(reader).openSession();
-		return ss;
+		return new SqlSessionFactoryBuilder().build(reader).openSession();
 	}
 	
 	public static void closeSqlSession(SqlSession sqlSession) {

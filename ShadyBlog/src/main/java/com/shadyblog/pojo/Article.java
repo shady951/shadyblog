@@ -24,6 +24,12 @@ public class Article {
         this.clickNumber = clickNumber;
     }
 
+    public Article(Integer articleId, String title, String summary) {
+    	this.articleId = articleId;
+        this.title = title;
+        this.summary = summary;
+    }
+    
     public Article(String title, String summary) {
         this.title = title;
         this.summary = summary;

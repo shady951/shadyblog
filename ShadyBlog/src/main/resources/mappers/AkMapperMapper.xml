@@ -17,9 +17,25 @@
     from ak_mapper
     where mapper_id = #{mapperId,jdbcType=INTEGER}
   </select>
+  <select id="selectArticleIdByKeywordId" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
+    select 
+    article_id
+    from ak_mapper
+    where keyword_id = #{keywordId,jdbcType=INTEGER}
+  </select>
+   <select id="selectKeywordIdByArticleId" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
+    select 
+    keyword_id
+    from ak_mapper
+    where article_id = #{articleId,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from ak_mapper
     where mapper_id = #{mapperId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByArticleId" parameterType="java.lang.Integer" >
+    delete from ak_mapper
+    where article_id = #{articleId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.shadyblog.pojo.AkMapper" >
     insert into ak_mapper (article_id, keyword_id
