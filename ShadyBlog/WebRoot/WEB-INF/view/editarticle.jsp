@@ -58,8 +58,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	           imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
 	           imageUploadURL : "<%=path%>/manager/uploadimg",
 	          /*  theme: "dark",//工具栏主题
-	           previewTheme: "dark",//预览主题
-	           editorTheme: "pastel-on-dark",//编辑主题 */
+	           editorTheme: "pastel-on-dark",//编辑主题
+	           previewTheme: "dark", 	//预览主题
+	            */
 	           emoji: true,
 	           taskList: true,
 	           //toc:true,

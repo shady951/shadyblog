@@ -105,13 +105,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       </h3>
 	  <div class="am-article-meta">
       <h4 class="blog-meta">
-	      <span>
-	  	   于 ${articleInfo.dateString}
-	      </span>
-	      <span style="color:#666;">&nbsp;|&nbsp;</span>
-	      <span >标签:</span>
+	      <span style="color:#9e9e9e;">发表于</span>
+	      <span>${articleInfo.dateString}</span>
+	      <span style="color:#9e9e9e;">&nbsp;|&nbsp;</span>
+	      <span style="color:#9e9e9e;">标签:</span>
 	      <c:forEach var="keyword" items="${articleInfo.keywordList }">
-		      <a href="<%=path %>/index?keywordId=${keyword.keywordId}" style="color:#666;">${keyword.name}</a>
+		      <a href="<%=path %>/index?keywordId=${keyword.keywordId}" style="color:#333333;">${keyword.name}</a>
 		      <span>&nbsp;</span>
 	      </c:forEach>
       </h4>
@@ -156,7 +155,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <footer class="blog-footer">
   <p>
-    <small>© 2017 by taochuang. All rights reserved</small>
+    <small><a href="http://www.miitbeian.gov.cn/">蜀ICP备17027700号</a> © 2017 taochuang</small>
   </p>
 </footer>
 
