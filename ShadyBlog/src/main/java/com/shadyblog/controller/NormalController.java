@@ -22,7 +22,7 @@ public class NormalController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(NormalController.class);
 	
 	@Inject
-	NormalService normalService;
+	private NormalService normalService;
 	
 	@Behavior(method="get", path="/index")
 	public View index(Param param) {

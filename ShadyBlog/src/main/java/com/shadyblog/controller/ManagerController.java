@@ -29,21 +29,21 @@ public class ManagerController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ManagerController.class);
 	
-	private static final boolean newArticle = true;
-	private static final boolean oldArticle = false;
+	private static final boolean NEWARTICLE = true;
+	private static final boolean OLDARTICLE = false;
 	
 	@Inject
-	ManagerService managerService;
+	private ManagerService managerService;
 	
 	@Inject
-	NormalService normalService;
+	private NormalService normalService;
 	
 	/**
 	 * 写文章 
 	 */
 	@Behavior(method="get", path="/manager/writearticle")
 	public View writeArticle(Param param) { 
-		return new View("editarticle.jsp").addModel("isNewArticle", newArticle);
+		return new View("editarticle.jsp").addModel("isNewArticle", NEWARTICLE);
 	}
 	
 	/**
@@ -55,7 +55,7 @@ public class ManagerController {
 		ArticleInfo articleInfo = normalService.getArticleInfo(articleId);
 		Content content= normalService.selectContentByArticleId(articleId);
 		String keywords = KeywordUtil.keywordListTokeywords(articleInfo.getKeywordList());
-		return new View("editarticle.jsp").addModel("isNewArticle", oldArticle).addModel("articleInfo", articleInfo)
+		return new View("editarticle.jsp").addModel("isNewArticle", OLDARTICLE).addModel("articleInfo", articleInfo)
 				.addModel("content", content).addModel("keywords", keywords);
 	}
 	

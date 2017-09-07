@@ -7,11 +7,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <!-- editormd start -->
     <link href="<%=path%>/staticresources/editormd/css/editormd.min.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script type="text/javascript" src="<%=path%>/staticresources/editormd/editormd.min.js"></script>
-    <script type="text/javascript">
+  </head>
+  
+  <body>
+  	<form action="<%=path%>/manager/uploadarticle" method="post" id="articleform" enctype="multipart/form-data">
+  	<span>标题:</span>
+  	<input name="title" value="">
+  	<span>摘要:</span>
+  	<input name="summary" value="">
+  	<span>关键词(多个以英文逗号分割):</span>
+  	<input name="keywords" value="">
+  	<input type="submit" value="提交"/>
+  	</form>
+    <!-- 以下为editormd内容 -->
+    <div class="editormd" id="test-editormd">
+    <!-- textarea的属性中，class属性必须指定，
+    	比如editormd-markdown-textarea，就指定该area保存md格式内容,
+    	editormd-html-textarea就指定该area保存html格式内容 -->
+    <!-- class=editormd-html-textarea，就指定该area保存html内容，但需要开启配置项 saveHTMLToTextarea == true -->
+    <textarea class="editormd-markdown-textarea" name="editormd" form="articleform"></textarea>
+    <!-- 第二个隐藏文本域，用来构造生成的HTML代码，方便表单POST提交，这里的name可以任意取，后台接受时以这个name键为准 -->
+    <textarea class="editormd-html-textarea" name="editorhtml" form="articleform"></textarea>       
+    </div>
+    <!-- 以上 --> 
+</body>
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="<%=path%>/staticresources/editormd/editormd.min.js"></script>
+<script type="text/javascript">
   var testEditor;
 
   testEditor=$(function() {
@@ -40,29 +63,4 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       });
   });
 </script>
-  <!-- editormd end -->  
-  </head>
-  
-  <body>
-  	<form action="<%=path%>/manager/uploadarticle" method="post" id="articleform" enctype="multipart/form-data"
-  	<span>标题:</span>
-  	<input name="title" value="">
-  	<span>摘要:</span>
-  	<input name="summary" value="">
-  	<span>关键词(多个以英文逗号分割):</span>
-  	<input name="keywords" value="">
-  	<span>发布时间(格式:6666-06-06,默认当前时间):</span>
-  	<input name="articletime" value="">
-  	<input type="submit" value="提交"/>
-  	</form>
-    <!-- editormd start -->
-    <div class="editormd" id="test-editormd">
-    <!-- textarea的属性中，class属性必须指定，比如editormd-markdown-textarea，就指定该area保存md格式内容 -->
-    <!-- class=editormd-html-textarea，就指定该area保存html内容，但需要开启配置项 saveHTMLToTextarea == true -->
-    <textarea class="editormd-markdown-textarea" name="editormd" form="articleform"></textarea>
-    <!-- 第二个隐藏文本域，用来构造生成的HTML代码，方便表单POST提交，这里的name可以任意取，后台接受时以这个name键为准 -->
-    <textarea class="editormd-html-textarea" name="editorhtml" form="articleform"></textarea>       
-    </div>
-    <!-- editormd end --> 
-</body>
 </html>

@@ -107,7 +107,7 @@ public class ManagerService {
 	 * 清除未被引用(计数为0)的关键字
 	 * @throws IOException 
 	 */
-	private void removeKeywordMapper(int articleId, SqlSession sqlSession) throws Exception {
+	private void removeKeywordMapper(int articleId, SqlSession sqlSession) throws IOException {
 			AkMapperMapper akMapperMapper = sqlSession.getMapper(AkMapperMapper.class);
 			KeywordMapper keywordMapper = sqlSession.getMapper(KeywordMapper.class);
 			List<Integer> keywordIdList = akMapperMapper.selectKeywordIdByArticleId(articleId);
