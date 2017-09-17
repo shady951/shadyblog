@@ -24,4 +24,6 @@ public interface ArticleMapper {
 	List<Article> selectSpecialArticleInOnePage(@Param("offset")int offSet, @Param("limit")int limit, @Param("list")List<Integer> articleIdList);
 
 	List<Integer> selectAllArticleId();
+
+	int updateClickNumber(int articleId);
 }

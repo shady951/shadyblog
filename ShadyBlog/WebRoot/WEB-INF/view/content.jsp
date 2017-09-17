@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link rel="stylesheet" href="<%=path%>/staticresources/editormd/css/editormd.preview.min.css" />
 	<link rel="stylesheet" href="<%=path%>/staticresources/editormd/css/editormd.min.css" />
     <link rel="stylesheet" href="<%=path%>/staticresources/assets/css/amazeui.min.css"/>
-	<link rel="alternate icon" type="image/png" href="assets/i/favicon.png">
+	<link rel="alternate icon" type="image/jpg" href="<%=path%>/staticresources/favicon.jpg">
 	<style>
     @media only screen and (min-width: 641px) {
       .am-offcanvas {
@@ -108,20 +108,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<header class="am-topbar" style="border-style:none;">
 	<div class="am-collapse am-topbar-collapse" style="margin-left:30px;margin-right:30px;">
 	  <h1 class="am-topbar-brand" >
-	    <a href="<%=path %>/index">Daily Record</a>
+	    <a href="<%=path %>/index">Shady's Blog</a>
 	  </h1>
 	    <ul class="am-nav am-nav-pills am-topbar-nav " style="margin:0px">
 	      <li ><a href="<%=path %>/index">首页</a></li>
-	      <li ><a href="<%=path %>/index">分类</a></li>
-	      <li><a href="<%=path %>/index">关于</a></li>
 	    </ul>
 	 	<ul class="am-nav am-nav-pills am-topbar-nav" style="float:right;margin-top:0px;">
-	      <li ><a href="">管理</a></li>
+	     <li >
+	      <shiro:guest>
+	      <a href="<%=path %>/manager/index">管理</a>
+	      </shiro:guest>
+	      <shiro:authenticated>
+			<a href="<%=path %>/manager/writearticle">新文章</a>
+	      </shiro:authenticated>
+      	 </li>
 	    </ul>
 	  </div>
 	</header>
 	<header class="am-g my-head">
-	  <div class="am-u-sm-12 am-article">
+	  <div class="am-u-sm-10 am-article">
 	    <h1 class="am-article-title">${articleInfo.article.title }</h1>
 	    <p class="am-article-meta"> 
 	      <span style="color:#9e9e9e;">发表于</span>
@@ -131,7 +136,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	      <c:forEach var="keyword" items="${articleInfo.keywordList }">
 		      <a href="<%=path %>/index?keywordId=${keyword.keywordId}" style="color:#333333;">${keyword.name}</a>
 		      <span>&nbsp;</span>
-	      </c:forEach></p>
+	      </c:forEach>
+	      <shiro:authenticated>
+	      	<a href="<%=path %>/manager/alterarticle?articleId=${articleInfo.article.articleId}">编辑文章</a>
+	      </shiro:authenticated>
+	      </p>
 	  </div>
 	</header>
 	<div class="am-g am-g-fixed" style="margin-top:40px;">
@@ -145,7 +154,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 </div>
 	</div>
   <footer class="my-footer">
-   <small><a href="http://www.miitbeian.gov.cn/">蜀ICP备17027700号</a> © 2017 by taochuang</small>
+   <small style="color:#9e9e9e"><a style="color:#9e9e9e" href="http://www.miitbeian.gov.cn/">蜀ICP备17027700号</a> © 2017 Shady</small>
   </footer>
   </body>
 	<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>

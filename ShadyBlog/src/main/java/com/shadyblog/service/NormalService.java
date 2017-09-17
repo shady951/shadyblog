@@ -30,6 +30,9 @@ public class NormalService {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(NormalService.class);
 	
+	/**
+	 * 获取页面信息 
+	 */
 	public Map<String, Object> getPageInfo(int pageNum, int keywordId) {
 		Map<String, Object> pageInfoMap = new HashMap<String, Object>();
 		pageNum = PageUtil.getCorrectPageNum(pageNum);

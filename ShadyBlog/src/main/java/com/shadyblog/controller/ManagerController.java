@@ -1,6 +1,7 @@
 package com.shadyblog.controller;
 
-import java.util.Map;
+import java.util.Date;
+import java.util.List;
 
 import org.shady4j.framework.annotation.Behavior;
 import org.shady4j.framework.annotation.Controller;
@@ -11,24 +12,22 @@ import org.shady4j.framework.bean.Param;
 import org.shady4j.framework.bean.View;
 import org.shady4j.framework.helper.ServletHelper;
 import org.shady4j.framework.helper.UploadHelper;
-import org.shady4j.framework.util.CollectionUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.shadyblog.dto.ArticleInfo;
 import com.shadyblog.dto.EditormdImage;
 import com.shadyblog.pojo.Article;
 import com.shadyblog.pojo.Content;
+import com.shadyblog.pojo.Iprecord;
+import com.shadyblog.service.IpService;
 import com.shadyblog.service.ManagerService;
 import com.shadyblog.service.NormalService;
+import com.shadyblog.util.DateUtil;
 import com.shadyblog.util.FileRenameUtil;
 import com.shadyblog.util.KeywordUtil;
 
 @Controller
 public class ManagerController {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(ManagerController.class);
-	
 	private static final boolean NEWARTICLE = true;
 	private static final boolean OLDARTICLE = false;
 	
@@ -37,6 +36,18 @@ public class ManagerController {
 	
 	@Inject
 	private NormalService normalService;
+	
+	@Inject 
+	private IpService ipservice;
+	
+	/**
+	 * 重定向
+	 */
+	@Behavior(method="get", path="/manager/index")
+	public View managerIndex(Param param) {
+		List<Iprecord> iprecordList = ipservice.findAll();
+		return new View("index").addModel("iprecordList", iprecordList);
+	}
 	
 	/**
 	 * 写文章 
@@ -84,12 +95,13 @@ public class ManagerController {
 	 */
 	@Behavior(method="post", path="/manager/addarticle")
 	public Data addArticle(Param param) {
-		Article article = new Article(param.getString("title"), param.getString("summary")); 
+		Date createTime = DateUtil.parseToDate(param.getString("createtime"));
+		Article article = new Article(param.getString("title"), param.getString("summary"), createTime); 
 		Content content = new Content(param.getString("editormd"), param.getString("editorhtml"));
 		if(managerService.addArticle(article, content, param.getString("keywords")))	 {
 			return new Data("success");
 		} else {
-			return new Data("failure"); //TODO
+			return new Data("failure");
 		}
 	}
 	
@@ -98,16 +110,17 @@ public class ManagerController {
 	 */
 	@Behavior(method="post", path="/manager/updatearticle")
 	public Data updateArticle(Param param) {
-		LOGGER.info("post:/manager/updatearticle");
-		Article article = new Article(param.getInt("articleId"), param.getString("title"), param.getString("summary")); 
+		Date createTime = DateUtil.parseToDate(param.getString("createtime"));
+		Article article = new Article(param.getInt("articleId"), param.getString("title"), param.getString("summary"), createTime); 
 		Content content = new Content(param.getInt("articleId"),param.getString("editormd"), param.getString("editorhtml"));
 		if(managerService.updateArticle(article, content, param.getString("keywords")))	 {
 			return new Data("success");
 		} else {
-			return new Data("failure"); //TODO
+			return new Data("failure");
 		}
 	}
 	
+	/*
 	@Behavior(method="post", path="/manager/test")
 	public Data test(Param param) {
 		Map<String, Object> map = param.getFieldMap();
@@ -124,5 +137,6 @@ public class ManagerController {
 		}
 		return null;
 	}
+	 */
 	
 }

@@ -99,6 +99,11 @@
       </if>
     </trim>
   </insert>
+  <update id="updateClickNumber" parameterType="java.lang.Integer" >
+	    update article
+	    set click_number = click_number + 1
+	    where article_id = #{articleId,jdbcType=INTEGER}
+  </update> 
   <update id="updateByPrimaryKeySelective" parameterType="com.shadyblog.pojo.Article" >
     update article
     <set >

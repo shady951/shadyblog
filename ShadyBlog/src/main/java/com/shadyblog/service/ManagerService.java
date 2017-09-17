@@ -31,12 +31,11 @@ public class ManagerService {
 	public  boolean updateArticle(Article article, Content content, String keywords) {
 		int articleId = article.getArticleId();
 		if(articleId == 0 || article.getTitle().equals("")) return false;
-		Date date = new Date();
 		SqlSession sqlSession = null;
 		try {
 			sqlSession = DBAccessUtil.getSqlSession();
 			ArticleMapper articleMapper = sqlSession.getMapper(ArticleMapper.class);
-			article.setUpdateTime(date);
+			article.setUpdateTime(new Date());
 			//更新文章信息
 			if(articleMapper.updateByPrimaryKeySelective(article) == 0) {
 				throw new IOException("update article failure!");
@@ -78,7 +77,7 @@ public class ManagerService {
 			//此insert返回主键ID至传入的实体对象中
 			articleMapper.insert(article);
 			Integer articleId = article.getArticleId();
-			LOGGER.info("articleId:"+articleId);
+			LOGGER.debug("articleId:"+articleId);
 			if(articleId == null) {
 				throw new IOException("insert article failure!");
 			}

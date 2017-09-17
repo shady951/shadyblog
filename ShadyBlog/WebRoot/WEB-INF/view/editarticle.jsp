@@ -18,10 +18,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<input name="summary" value="${articleInfo.article.summary }">
   	<span>关键词(多个以英文逗号“,”分割):</span>
   	<input name="keywords" value="${keywords }" >
+  	<span>创建时间(yyyy-MM-dd):</span>
+  	<input name="createtime" value="${articleInfo.dateString }" >
   	<input type="hidden" name="articleId" value="${articleInfo.article.articleId }"/>
   	<input id="newarticle" type="submit" value="保存"/>
   	<input id="oldarticle" type="submit" formaction="<%=path%>/manager/updatearticle" value="更新并保存" />
-  	<span>创建时间：${articleInfo.dateString }</span>
   	</form>
     <!-- 以下为editormd内容 -->
     <div class="editormd editormd-vertical" id="my_editormd">

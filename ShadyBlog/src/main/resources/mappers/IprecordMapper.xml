@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shadyblog.dao.IprecordMapper" >
+  <resultMap id="BaseResultMap" type="com.shadyblog.pojo.Iprecord" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ip" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="address" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="indexnum" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="contentnum" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="first_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="last_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, ip, address, indexnum, contentnum, first_time, last_time
+  </sql>
+    <select id="selectAll" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from iprecord
+  </select>
+  <select id="selectId" resultType="java.lang.Integer">
+		SELECT 
+		id
+		FROM iprecord
+		where ip = #{ip,jdbcType=VARCHAR}
+  </select>
+  <insert id="insertIprecord" parameterType="com.shadyblog.pojo.Iprecord" useGeneratedKeys="true" keyProperty="id" >
+	    insert into iprecord (ip, address, first_time, last_time)
+	    values (#{ip,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}#{firstTime,jdbcType=TIMESTAMP},
+	     #{lastTime,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateIndexnum" parameterType="com.shadyblog.pojo.Iprecord" >
+	    update iprecord
+	    set indexnum = indexnum + 1, last_time =  #{lastTime,jdbcType=TIMESTAMP}
+	    where id = #{id,jdbcType=INTEGER}
+  </update> 
+  <update id="updateContentnum" parameterType="com.shadyblog.pojo.Iprecord" >
+	    update iprecord
+	    set contentnum = contentnum + 1, last_time =  #{lastTime,jdbcType=TIMESTAMP}
+	    where id = #{id,jdbcType=INTEGER}
+  </update> 
+</mapper>

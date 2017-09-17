@@ -33,6 +33,7 @@
     	<mapper resource="mappers/KeywordMapper.xml"/>
     	<mapper resource="mappers/ContentMapper.xml"/>
     	<mapper resource="mappers/ArticleMapper.xml"/>
+    	<mapper resource="mappers/IprecordMapper.xml"/>
     </mappers>  
     
 </configuration>

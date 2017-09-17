@@ -24,15 +24,17 @@ public class Article {
         this.clickNumber = clickNumber;
     }
 
-    public Article(Integer articleId, String title, String summary) {
+    public Article(Integer articleId, String title, String summary, Date createTime) {
     	this.articleId = articleId;
         this.title = title;
         this.summary = summary;
+        this.createTime = createTime;
     }
     
-    public Article(String title, String summary) {
+    public Article(String title, String summary, Date createTime) {
         this.title = title;
         this.summary = summary;
+        this.createTime = createTime;
     }
     
     public Article() {
