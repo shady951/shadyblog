@@ -86,10 +86,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <header class="am-topbar" style="border-style:none;">
   <div class="am-collapse am-topbar-collapse" style="margin-left:30px;margin-right:30px;">
   <h1 class="am-topbar-brand" >
-    <a href="<%=path %>/index">Shady's Blog</a>
+    <a href="<%=path %>">Shady's Blog</a>
   </h1>
     <ul class="am-nav am-nav-pills am-topbar-nav " style="margin:0px">
-      <li ><a href="<%=path %>/index">首页</a></li>
+      <li ><a href="<%=path %>">首页</a></li>
     </ul>
  	<ul class="am-nav am-nav-pills am-topbar-nav" style="float:right;margin-top:0px;">
       <li >
@@ -119,7 +119,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	      <span style="color:#9e9e9e;">标签:</span>
 	      <c:forEach var="keyword" items="${articleInfo.keywordList }">
 		      <a style="color:#333333" href="<%=path %>/index?keywordId=${keyword.keywordId}">${keyword.name}</a>
-		      <span>&nbsp;</span>
 	      </c:forEach>
 	      <shiro:authenticated>
 	      	<span style="color:#9e9e9e;">浏览量:${articleInfo.article.clickNumber }</span>
@@ -132,12 +131,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <hr class="am-article-divider blog-hr">
   </c:forEach>
 
-    <ul class="am-pagination blog-pagination">
+    <ul class="am-pagination blog-pagination" style="text-align: center;">
       	<li class="am-pagination-prev" id="pagebeginl"><a href="<%=path%>/index?pageNum=1&keyworId=${pageNumInfo.keywordId}">&laquo; 首页</a></li>
-		<li class="am-pagination-prev" id="pagebeginm"><a href="<%=path%>/index?pageNum=${pageNumInfo.pageNum - 2}&keyworId=${pageNumInfo.keywordId}">${pageNumInfo.pageNum - 2}</a></li>
 		<li class="am-pagination-prev" id="pagebeginr"><a href="<%=path%>/index?pageNum=${pageNumInfo.pageNum - 1}&keyworId=${pageNumInfo.keywordId}">上一页</a></li>
+		<li><span style="display: inline-block; border: aliceblue;">${pageNumInfo.pageNum}/${pageNumInfo.pageAmount}</span></li>
       	<li class="am-pagination-next" id="pageendr"><a href="<%=path%>/index?pageNum=${pageNumInfo.pageAmount}&keyworId=${pageNumInfo.keywordId}">尾页&raquo;</a></li>
-		<li class="am-pagination-next" id="pageendm"><a href="<%=path%>/index?pageNum=${pageNumInfo.pageNum + 2}&keyworId=${pageNumInfo.keywordId}">${pageNumInfo.pageNum + 2}</a></li>
 		<li class="am-pagination-next" id="pageendl"><a href="<%=path%>/index?pageNum=${pageNumInfo.pageNum + 1}&keyworId=${pageNumInfo.keywordId}">下一页</a></li>
     </ul>
   </div>
@@ -206,26 +204,16 @@ $(function() {
 	var pageAmount = ${pageNumInfo.pageAmount};
 	if(pageNum == 1) {
 		$('#pagebeginl').hide();
-		$('#pagebeginm').hide();
 		$('#pagebeginr').hide();
 	}; 	  	
 	if(pageNum == 2) {
 		$('#pagebeginl').hide();
-		$('#pagebeginm').hide();
-	};
-	if(pageNum == 3) {
-		$('#pagebeginl').hide();
-	};
-	if(pageNum == pageAmount - 2) {
-		$('#pageendr').hide();
 	};
 	if(pageNum == pageAmount - 1) {
 		$('#pageendr').hide();
-		$('#pageendm').hide();
 	};
 	if(pageNum == pageAmount) {
 		$('#pageendr').hide();
-		$('#pageendm').hide();
 		$('#pageendl').hide();
 	};
 	  });

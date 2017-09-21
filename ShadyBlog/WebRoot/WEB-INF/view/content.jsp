@@ -108,10 +108,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<header class="am-topbar" style="border-style:none;">
 	<div class="am-collapse am-topbar-collapse" style="margin-left:30px;margin-right:30px;">
 	  <h1 class="am-topbar-brand" >
-	    <a href="<%=path %>/index">Shady's Blog</a>
+	    <a href="<%=path %>">Shady's Blog</a>
 	  </h1>
 	    <ul class="am-nav am-nav-pills am-topbar-nav " style="margin:0px">
-	      <li ><a href="<%=path %>/index">首页</a></li>
+	      <li ><a href="<%=path %>">首页</a></li>
 	    </ul>
 	 	<ul class="am-nav am-nav-pills am-topbar-nav" style="float:right;margin-top:0px;">
 	     <li >
